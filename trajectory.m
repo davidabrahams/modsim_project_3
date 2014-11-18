@@ -18,7 +18,7 @@ y = r_planet;
     dVdt = acceleration(P, m_planet);
 
     res = [dPdt; dVdt];
-end
+    end
 
 end
 
