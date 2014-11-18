@@ -36,7 +36,7 @@ animation()
 
         for i = 1:length(T) - 1
             disp(T(i))
-            delay = (T(i+1) - T(i))/200;
+            delay = (T(i+1) - T(i))/100;
             plot(X(i), Y(i),'*')
             pause(delay)
         end
