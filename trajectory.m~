@@ -20,11 +20,8 @@ v_y = v_initial*sind(launch_angle);
 x = 0;
 y = r_planet;
 
-%Create events object for ode45 call
-options = odeset('Events', @events);
-
 %Compute time series for projectile
-[T, Trajectory] = ode45(@derivs, [0 10000], [x, y, v_x, v_y], options);
+[T, Trajectory] = ode45(@derivs, [0 .6], [x, y, v_x, v_y]);
 
     function res = derivs(t, W)
     % computes derivatives at each time step
@@ -41,28 +38,20 @@ options = odeset('Events', @events);
     res = [dPdt; dVdt];
     end
 
-    function [value,isterminal,direction] = events(t,W)
-        value = sqrt((W(1))^2+(W(2))^2)-r_planet; % Extract the current height minus 97, to stop when x = 97m.
-        isterminal = 1; % Stop the integration if height crosses zero.
-        direction = -1; % But only if the height is decreasing.
-    end
-
 end
 
 function res = acceleration(P, m_planet)
-    % Outputs:
-    %     res: [d2x/dt; d2y/dt]
+% Outputs:
+%     res: [d2x/dt; d2y/dt]
 
-    G = 6.67384e-11; %Universal gravitational constant
-    x = P(1); %Current x position
-    y = P(2); %Current y position
+G = 6.67384e-11; %Universal gravitational constant
+x = P(1); %Current x position
+y = P(2); %Current y position
 
-    a_grav = G * m_planet / (x^2 + y^2); %Computes magnitude of acceleration due to gravity
+a_grav = G * m_planet / sqrt(x^2 + y^2); %Computes magnitude of acceleration due to gravity
 
-    unit_vector = [x; y] ./ norm([x y]); 
-    res = -a_grav * unit_vector; %Returns vector of acceleration due to gravity
+unit_vector = [x; y] ./ norm([x y]); 
+res = -a_grav * unit_vector; %Returns vector of acceleration due to gravity
 
 end
-
-
 

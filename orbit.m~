@@ -35,8 +35,8 @@ animation()
         ylim([-2*r_planet, 2*r_planet]);
 
         for i = 1:length(T) - 1
-            disp(T(i))
-            delay = (T(i+1) - T(i))/200;
+            strcat('Current Time: ', num2str(T(i)))
+            delay = (T(i+1) - T(i))*10;
             plot(X(i), Y(i),'*')
             pause(delay)
         end
