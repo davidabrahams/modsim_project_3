@@ -1,4 +1,4 @@
-function [T Trajectory] = trajectory(v_initial, r_planet, equatorial_speed, m_planet, launch_angle)
+function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, equatorial_speed, m_planet, launch_angle)
 
 % Inputs:
 %     v_initial: Initial magnitude of launch velocity
@@ -36,7 +36,7 @@ options = odeset('Events', @events);
     V = W(3:4); %the current velocity [dx/dt dy/dt]
 
     dPdt = V; % change in position is velocity
-    dVdt = acceleration(P, m_planet);
+    dVdt = acceleration(P, V, m_projectile, m_planet);
 
     res = [dPdt; dVdt];
     end
@@ -49,20 +49,6 @@ options = odeset('Events', @events);
 
 end
 
-function res = acceleration(P, m_planet)
-    % Outputs:
-    %     res: [d2x/dt; d2y/dt]
-
-    G = 6.67384e-11; %Universal gravitational constant
-    x = P(1); %Current x position
-    y = P(2); %Current y position
-
-    a_grav = G * m_planet / (x^2 + y^2); %Computes magnitude of acceleration due to gravity
-
-    unit_vector = [x; y] ./ norm([x y]); 
-    res = -a_grav * unit_vector; %Returns vector of acceleration due to gravity
-
-end
 
 
 

@@ -12,9 +12,11 @@ m_planet = 5.972e24; %Mass of the planet in kg
 r_planet = 6378137; %Radius of planet Earth (m)
 angular_velocity_planet = 7.2921150e-5; %Rngular velocity of planet Earth (rad/s)
 equatorial_speed = r_planet * angular_velocity_planet; %Velocity of Earth's rotation at equator in m/s
+m_projectile = 1;
+
 
 %evaluate the trajectory of the projectile
-[T, Trajectory] = trajectory(v_initial, r_planet, equatorial_speed, m_planet, launch_angle); %Computes time series 
+[T, Trajectory] = trajectory(m_projectile, v_initial, r_planet, equatorial_speed, m_planet, launch_angle); %Computes time series 
 
 %plot the trajectory of the projectile
 X = Trajectory(:, 1); %Unpacks x component of projectile position
