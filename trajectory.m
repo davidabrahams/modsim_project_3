@@ -42,9 +42,9 @@ options = odeset('Events', @events);
     end
 
     function [value,isterminal,direction] = events(t,W)
-        value = sqrt((W(1))^2+(W(2))^2)-r_planet; % Extract the current height minus 97, to stop when x = 97m.
+        value = sqrt((W(1))^2+(W(2))^2)-r_planet; % Extract the distance from the planet
         isterminal = 1; % Stop the integration if height crosses zero.
-        direction = -1; % But only if the height is decreasing.
+        direction =  -1; % But only if the height is decreasing.
     end
 
 end
