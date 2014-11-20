@@ -1,4 +1,4 @@
-function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, equatorial_speed, m_planet, launch_angle)
+function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, equatorial_speed, m_planet, launch_angle)
 
 % Inputs:
 %     v_initial: Initial magnitude of launch velocity
@@ -13,7 +13,7 @@ function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, equatori
     
 
 %Compute initial x and y components of launch velocity
-v_x = v_initial*cosd(launch_angle) + equatorial_speed;
+v_x = v_initial*cosd(launch_angle);
 v_y = v_initial*sind(launch_angle); 
 
 %Set the initial position of the projectile
@@ -36,7 +36,7 @@ options = odeset('Events', @events);
     V = W(3:4); %the current velocity [dx/dt dy/dt]
 
     dPdt = V; % change in position is velocity
-    dVdt = acceleration(P, V, m_projectile, m_planet);
+    dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
 
     res = [dPdt; dVdt];
     end
