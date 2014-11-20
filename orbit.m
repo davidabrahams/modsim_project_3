@@ -22,7 +22,7 @@ m_projectile = 1;
 X = Trajectory(:, 1); %Unpacks x component of projectile position
 Y = Trajectory(:, 2); %Unpacks y component of projectile position
 
-disp(T)
+
 animation()
 
     function animation()
@@ -37,10 +37,9 @@ animation()
         ylim([-2*r_planet, 2*r_planet]);
 
         for i = 1:length(T) - 1
-            disp(T(i))
             delay = (T(i+1) - T(i))/100;
-            plot(X(i), Y(i),'*')
-            pause(delay)
+            plot(X(i), Y(i),'*');
+            pause(delay);
         end
         
     end

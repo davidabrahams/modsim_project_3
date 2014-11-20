@@ -15,10 +15,10 @@ function res = acceleration(P, V, m_projectile, m_planet)
     pos_unit_vector = P ./ norm(P); %Compute the unit vector of position
     vel_unit_vector = V ./ vel_magnitude; %Compute the unit vector of velocity
 
-    F_grav_magnitude = G * m_planet * m_projectile / (x^2 + y^2); %Computes magnitude of force due to gravity
+    F_grav_magnitude = G * m_planet * m_projectile / (x^2 + y^2) %Computes magnitude of force due to gravity
     F_grav_vector = - F_grav_magnitude * pos_unit_vector;
     
-    F_drag_magnitude = 0.5 * air_density * vel_magnitude^2 * C_d * A;
+    F_drag_magnitude = 0.5 * air_density * vel_magnitude^2 * C_d * A
     F_drag_vector = -F_drag_magnitude * vel_unit_vector;
    
     res = (F_grav_vector + F_drag_vector) / m_projectile; %Returns vector of acceleration due to gravity
