@@ -10,7 +10,6 @@ function orbit(v_initial, launch_angle)
 %set the constants
 m_planet = 5.972e24; %Mass of the planet in kg
 r_planet = 6378137; %Radius of planet Earth (m)
-% equatorial_speed = r_planet * angular_velocity_planet; %Velocity of Earth's rotation at equator in m/s
 m_projectile = 8e-3; %mass of bullet is 8 grams
 surface_density = 1.2; %kg/m^3, air density on earth
 atmosphere_height = 100e3; %atmospheric height of earth (m)

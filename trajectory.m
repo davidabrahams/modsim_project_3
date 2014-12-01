@@ -1,4 +1,4 @@
-function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, equatorial_speed, m_planet, launch_angle)
+function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle)
 
 % Inputs:
 %     v_initial: Initial magnitude of launch velocity
