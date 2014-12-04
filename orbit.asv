@@ -1,4 +1,4 @@
-function [init_ang, init_vel] = orbit(v_initial, launch_angle, initial_height, is_backward) 
+function [init_ang, init_v = orbit(v_initial, launch_angle, initial_height, is_backward) 
 
 % Inputs: 
 %     v_initial -> magnitude of the initial launch velocity
