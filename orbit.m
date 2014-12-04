@@ -1,4 +1,4 @@
-function orbit(v_initial, launch_angle) 
+function orbit(v_initial, launch_angle, initial_height, is_backward) 
 
 % Inputs: 
 %     v_initial -> magnitude of the initial launch velocity
@@ -16,8 +16,10 @@ atmosphere_height = 100e3; %atmospheric height of earth (m)
 
 
 %evaluate the trajectory of the projectile
-[T, Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle); %Computes time series 
 
+[T, Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle, initial_height, is_backward); %Computes time series 
+ 
+    
 %plot the trajectory of the projectile
 X = Trajectory(:, 1); %Unpacks x component of projectile position
 Y = Trajectory(:, 2); %Unpacks y component of projectile position
@@ -30,13 +32,11 @@ maxheight = max_height(X, Y, r_planet)
         figure; hold on;
 
         %Plots planet visualization
-        theta = linspace(0, 2*pi, 500);
+        theta = linspace(0, 2*pi, 5000);
         plot(cos(theta) * r_planet, sin(theta) * r_planet, 'g', 'LineWidth',2);
 
-        window_size = 0.0005; %units: earths
-
-        xlim([-window_size * r_planet, window_size * r_planet]);
-        ylim([(1 - window_size) * r_planet, (1 + window_size) * r_planet]);
+%         minmax = [min(X)-1000,max(X)+1000,min(Y)-1000,max(Y)+1000];
+%         axis(minmax)
 
         for i = 1:length(T) - 1
             delay = (T(i+1) - T(i))/100;

@@ -1,4 +1,4 @@
-function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle)
+function [T Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle, initial_height, is_backward)
 
 % Inputs:
 %     v_initial: Initial magnitude of launch velocity
@@ -18,13 +18,13 @@ v_y = v_initial*sind(launch_angle);
 
 %Set the initial position of the projectile
 x = 0;
-y = r_planet;
+y = r_planet + initial_height;
 
 %Create events object for ode45 call
 options = odeset('Events', @events);
 
 %Compute time series for projectile
-[T, Trajectory] = ode45(@derivs, [0 10000], [x, y, v_x, v_y], options);
+[T, Trajectory] = ode23(@derivs, [0 100000], [x, y, v_x, v_y], options);
 
     function res = derivs(t, W)
     % computes derivatives at each time step
@@ -36,9 +36,12 @@ options = odeset('Events', @events);
     V = W(3:4); %the current velocity [dx/dt dy/dt]
 
     dPdt = V; % change in position is velocity
-    dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
-
-    res = [dPdt; dVdt];
+    if (is_backward == false)
+        dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
+    else
+         dVdt = backward_acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
+    end
+         res = [dPdt; dVdt];
     end
 
     function [value,isterminal,direction] = events(t,W)
