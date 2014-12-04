@@ -28,7 +28,7 @@ y = r_planet + initial_height;
 %Create events object for ode45 call
 options = odeset('Events', @events);
 
-time_to_sim = 10000; %seconds
+time_to_sim = 15000; %seconds
 
 step_size =.25; %seconds
 
@@ -46,12 +46,11 @@ step_size =.25; %seconds
     V = W(3:4); %the current velocity [dx/dt dy/dt]
 
     dPdt = V; % change in position is velocity
-    if (is_backward == false)
-        dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
-    else
-         dVdt = backward_acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height);
-    end
-         res = [dPdt; dVdt];
+    
+    dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height, is_backward);
+    
+    res = [dPdt; dVdt];
+
     end
 
     function [value,isterminal,direction] = events(t,W)

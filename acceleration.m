@@ -1,4 +1,4 @@
-function res = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height)
+function res = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height, is_backward)
     % Outputs:
     %     res: [d2x/dt; d2y/dt]
 
@@ -14,12 +14,20 @@ function res = acceleration(P, V, m_projectile, m_planet, r_planet, surface_dens
     
     C_d = drag_coefficient(vel_magnitude); %drag coefficient of bullet
 
+    if(C_d < 0)
+        disp('Coefficient is less than zero.')
+        disp(C_d)
+    end
+    
     F_grav_magnitude = G * m_planet * m_projectile / (norm(P)^2); %Computes magnitude of force due to gravity
     F_grav_vector = - F_grav_magnitude * pos_unit_vector;
     
     F_drag_magnitude = 0.5 * air_density * vel_magnitude^2 * C_d * A;
     F_drag_vector = - F_drag_magnitude * vel_unit_vector;
    
-    res = (F_grav_vector + F_drag_vector) / m_projectile; %Returns vector of acceleration due to gravity
-
+    if (is_backward == false)
+        res = (F_grav_vector + F_drag_vector) / m_projectile; %Returns vector of acceleration due to gravity
+    else
+        res = (F_grav_vector - F_drag_vector) / m_projectile; %Returns vector of acceleration due to gravity
+    end
 end

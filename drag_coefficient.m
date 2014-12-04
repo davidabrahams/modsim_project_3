@@ -18,11 +18,11 @@ function res = drag_coefficient(v_mag)
     % If the current velocity falls above the bounds of the table, then
     % approximate drag coefficient by assuming it exponentially decays
     % toward to value of C_D at mach 0.
-    if isnan(answer)
+    if (mach_number > Mach(end))
         answer = 0.3705 * exp(-.903 * mach_number) + C_D(1);
     end
     
-    res = answer;
+    res = .23;
         
     
 end
