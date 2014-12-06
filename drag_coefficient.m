@@ -13,7 +13,7 @@ function res = drag_coefficient(v_mag)
     
     % Use the table to interpolate the drag coefficient at the current
     % velocity
-    answer = interp1(Mach, C_D, mach_number, 'spline');
+    answer = interp1(Mach, C_D, mach_number, 'linear');
     
     % If the current velocity falls above the bounds of the table, then
     % approximate drag coefficient by assuming it exponentially decays
@@ -22,7 +22,7 @@ function res = drag_coefficient(v_mag)
         answer = 0.3705 * exp(-.903 * mach_number) + C_D(1);
     end
     
-    res = .23;
+    res = answer;
         
     
 end

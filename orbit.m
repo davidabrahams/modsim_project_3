@@ -1,4 +1,4 @@
-function [proj_ang, init_vel] = orbit(Planet, v_initial, launch_angle, initial_height, is_backward) 
+function [proj_ang, init_vel] = orbit(Planet, v_initial, launch_angle, initial_height, is_backward, plot_line) 
 
 % Inputs: 
 %     v_initial -> magnitude of the initial launch velocity
@@ -25,6 +25,9 @@ atmosphere_height = Planet.('atmosphere_height'); %atmospheric height of earth (
 X = Trajectory(:, 1); %Unpacks x component of projectile position
 Y = Trajectory(:, 2); %Unpacks y component of projectile position
 
+X_to_plot = X ./ 1000; %Unpacks x component of projectile position
+Y_to_plot = Y ./ 1000 - r_planet / 1000; %Unpacks y component of projectile position
+
 Vx = Trajectory(:, 3); %Unpack x velocity
 Vy = Trajectory(:, 4); %Unpack y velocity
 
@@ -45,30 +48,42 @@ proj_ang = launch_ang - surface_ang; %the angle of the launch relative to the pl
 
 animation()
 
-maxheight = max_height(X, Y, r_planet)
+maxheight = max_height(X, Y, r_planet);
 
     function animation()
-        figure;
-
+        figure();
+        
         %Plots planet visualization
         theta = linspace(0, 2*pi, 5000);
-        plot(cos(theta) * r_planet, sin(theta) * r_planet, 'g', 'LineWidth',2);
-        hold on;
+        plot(cos(theta) * r_planet / 1000, sin(theta) * r_planet / 1000 - r_planet / 1000, 'g', 'LineWidth',5);
+        hold on
+        plot(cos(theta) * (r_planet + atmosphere_height) / 1000, sin(theta) * (r_planet + atmosphere_height) / 1000 - r_planet / 1000, 'b--', 'LineWidth',1);
+%         hold all; % Uncomment for awesome colors
 
         %minmax = [min(X),max(X),min(Y),max(Y)];
-        x_range = max(X) - min(X);
-        y_range = max(Y) - min(Y);
+        x_range = max(X_to_plot) - min(X_to_plot);
+        y_range = max(Y_to_plot) - min(Y_to_plot);
         max_range = 1.2 * max([x_range, y_range]);
-        mid_X = mean([max(X), min(X)]);
-        mid_Y = mean([max(Y), min(Y)]);
+        mid_X = mean([max(X_to_plot), min(X_to_plot)]);
+        mid_Y = mean([max(Y_to_plot), min(Y_to_plot)]);
         axis_bounds = [mid_X - max_range / 2, mid_X + max_range / 2, mid_Y - max_range / 2, mid_Y + max_range / 2];
+        
+        if (plot_line == false)
+            for i = 1:length(T) - 1
+                title('Projectile Trajectory Over Planet','FontSize',12)
+                xlabel('X (Meters)','FontSize',12)
+                ylabel('Y (Meters)','FontSize',12)
 
-        for i = 1:length(T) - 1
-            delay = (T(i+1) - T(i))/2;
-            plot(X(i), Y(i),'*');
-            %axis([-window_size * r_planet, window_size * r_planet, (r_planet + initial_height) - window_size * r_planet, (r_planet + initial_height) + window_size * r_planet]);
+
+                delay = (T(i+1) - T(i))/2;
+                plot(X_to_plot(i), Y_to_plot(i),'r*', 'MarkerSize', 8);
+                %axis([-window_size * r_planet, window_size * r_planet, (r_planet + initial_height) - window_size * r_planet, (r_planet + initial_height) + window_size * r_planet]);
+                axis(axis_bounds);
+                pause(delay/1000);
+            end
+        else
+            plot(X_to_plot, Y_to_plot, 'r-', 'LineWidth', 2);
             axis(axis_bounds);
-            pause(delay/1000);
         end
         
     end

@@ -28,10 +28,11 @@ y = r_planet + initial_height;
 %Create events object for ode45 call
 options = odeset('Events', @events);
 
-time_to_sim = 15000; %seconds
+time_to_sim = 150000; %seconds
+step_size = 1;
 
 %Compute time series for projectile
-%[T, Trajectory] = ode45(@derivs, 0:step_size:time_to_sim, [x, y, v_x, v_y], options);
+% [T, Trajectory] = ode45(@derivs, 0:step_size:time_to_sim, [x, y, v_x, v_y], options);
 [T, Trajectory] = ode45(@derivs, [0 time_to_sim], [x, y, v_x, v_y], options);
 
     function res = derivs(t, W)
