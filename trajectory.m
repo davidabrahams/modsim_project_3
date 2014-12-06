@@ -30,8 +30,6 @@ options = odeset('Events', @events);
 
 time_to_sim = 15000; %seconds
 
-step_size =.25; %seconds
-
 %Compute time series for projectile
 %[T, Trajectory] = ode45(@derivs, 0:step_size:time_to_sim, [x, y, v_x, v_y], options);
 [T, Trajectory] = ode45(@derivs, [0 time_to_sim], [x, y, v_x, v_y], options);
