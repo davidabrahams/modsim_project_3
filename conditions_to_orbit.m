@@ -7,7 +7,7 @@ atmosphere_height = planet.('atmosphere_height'); %atmospheric height of earth (
 
 v_orbit = sqrt(G * m_planet / (r_planet + atmosphere_height));
 
-[angle, init_vel] = orbit(planet, v_orbit, 0, atmosphere_height, true);
+[angle, init_vel] = orbit(planet, v_orbit, 0, atmosphere_height, true, false);
 
 end
 

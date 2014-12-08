@@ -33,7 +33,7 @@ step_size = 1;
 
 %Compute time series for projectile
 % [T, Trajectory] = ode45(@derivs, 0:step_size:time_to_sim, [x, y, v_x, v_y], options);
-[T, Trajectory] = ode45(@derivs, [0 time_to_sim], [x, y, v_x, v_y], options);
+[T, Trajectory] = ode45(@derivs, [0:20:time_to_sim], [x, y, v_x, v_y], options);
 
     function res = derivs(t, W)
     % computes derivatives at each time step

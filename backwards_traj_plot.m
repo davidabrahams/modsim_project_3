@@ -1,6 +1,6 @@
 function res = backwards_traj_plot(v_final)
 
-    earth = Earth();
+    earth = Mars();
     
     title_string = strcat('Reaching the Atmosphere at V = ', num2str(v_final), ' m/s');
     
