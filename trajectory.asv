@@ -46,7 +46,7 @@ step_size = 1;
 
     dPdt = V; % change in position is velocity
     
-    dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height, speed_of_sound, is_backward);
+    dVdt = acceleration(P, V, m_projectile, m_planet, r_planet, surface_density, atmosphere_height, is_backward);
     
     res = [dPdt; dVdt];
 

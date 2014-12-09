@@ -13,11 +13,12 @@ r_planet = Planet.('r_planet'); %Radius of planet Earth (m)
 m_projectile = 8e-3; %mass of bullet is 8 grams
 surface_density = Planet.('surface_density'); %kg/m^3, air density on earth
 atmosphere_height = Planet.('atmosphere_height'); %atmospheric height of earth (m)
+speed_of_sound = Planet.('speed_of_sound');
 
 
 %evaluate the trajectory of the projectile
 
-[T, Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, m_planet, launch_angle, initial_height, is_backward); %Computes time series 
+[T, Trajectory] = trajectory(m_projectile, v_initial, r_planet, surface_density, atmosphere_height, speed_of_sound, m_planet, launch_angle, initial_height, is_backward); %Computes time series 
 
 
     
