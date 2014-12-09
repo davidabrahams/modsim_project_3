@@ -72,8 +72,8 @@ maxheight = max_height(X, Y, r_planet);
         if (plot_line == false)
             for i = 1:length(T) - 1
                 title('Projectile Trajectory Over Planet','FontSize',12)
-                xlabel('X (Meters)','FontSize',12)
-                ylabel('Y (Meters)','FontSize',12)
+                xlabel('X (km)','FontSize',12)
+                ylabel('Y (km)','FontSize',12)
 
 
                 delay = (T(i+1) - T(i))/2;
