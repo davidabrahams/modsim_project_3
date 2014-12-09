@@ -17,5 +17,5 @@ classdef Venus < Planet
         end
         
     end
-    
+
 end
