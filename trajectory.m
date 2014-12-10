@@ -28,7 +28,7 @@ y = r_planet + initial_height;
 %Create events object for ode45 call
 options = odeset('Events', @events);
 
-time_to_sim = 150000; %seconds
+time_to_sim = 1e15; %seconds
 step_size = 1;
 
 %Compute time series for projectile
