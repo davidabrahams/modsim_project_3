@@ -4,6 +4,7 @@ classdef Planet
     
     properties
         
+        name
         speed_of_sound
         m_planet
         r_planet
@@ -13,7 +14,8 @@ classdef Planet
     
     methods
         
-        function planet = Planet(m, r, s_d, a_h, s_s)
+        function planet = Planet(n, m, r, s_d, a_h, s_s)
+            planet.name = n;
             planet.m_planet = m;
             planet.r_planet = r;
             planet.surface_density = s_d;

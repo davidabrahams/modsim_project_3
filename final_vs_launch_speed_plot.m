@@ -1,35 +1,37 @@
-function final_vs_launch_speed_plot(planet)
+function [finals, initials] = final_vs_launch_speed_plot(planet, final_min, final_max, elements, should_plot)
 
-v_min = 1;
-v_max = 400;
+    finals = linspace(final_min, final_max, elements);
+    finals = finals(:);
+    atmosphere_height = planet.('atmosphere_height');
 
-finals = linspace(v_min, v_max);
-atmosphere_height = planet.('atmosphere_height');
+    initials = zeros(length(finals), 1);
 
-initials = zeros(length(finals), 1);
+    for i=1:length(finals)
 
-for i=1:length(finals)
-    
-    [a, v] = orbit(planet, finals(i), 0, atmosphere_height, true, false, false);
-    initials(i) = v;
-    disp(strcat('Simulations ', num2str(100*i/length(finals)), '% complete'));
-    
-end
+        [~, v] = orbit(planet, finals(i), 0, atmosphere_height, true, false, false);
+        initials(i) = v;
+        disp(strcat('Simulations ', num2str(100*i/length(finals)), '% complete'));
 
-speed_of_light = 299792458; %m/s
-muzzle_velocity = 350;
+    end
 
-clf;
+    if (should_plot == true)
 
-semilogy(finals, initials, 'LineWidth', 3);
-hold all;
-h1 = semilogy([v_min v_max], [muzzle_velocity muzzle_velocity], 'LineWidth', 2);
-%h2 = semilogy([v_min v_max], [speed_of_light speed_of_light], 'LineWidth', 2);
-title('Velocity at Top of Trajectory vs. Launch Speed', 'FontSize', 12);
-xlabel('Velocity at Top (m/s)','FontSize',12);
-ylabel('Launch Velocity Needed (m/s)','FontSize',12);
+        speed_of_light = 299792458; %m/s
+        muzzle_velocity = 350;
 
-legend([h1], {'Muzzle velocity'});
-%legend([h1 h2], {'Muzzle velocity', 'Speed of light'});
+        clf;
+        hold all;
+
+        h1 = semilogy(finals, initials, 'LineWidth', 3);
+        h2 = semilogy([final_min final_max], [muzzle_velocity muzzle_velocity], 'LineWidth', 2);
+        h3 = semilogy([final_min final_max], [speed_of_light speed_of_light], 'LineWidth', 2);
+        title('Velocity at Top of Trajectory vs. Launch Speed', 'FontSize', 12);
+        xlabel('Velocity at Top (m/s)','FontSize',12);
+        ylabel('Launch Velocity Needed (m/s)','FontSize',12);
+
+        %legend([h1], {'Muzzle velocity'});
+        legend([h1 h2 h3], {'Launch velocity', 'Muzzle velocity', 'Speed of light'});
+
+    end
 
 end

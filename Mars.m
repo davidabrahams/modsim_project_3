@@ -8,12 +8,13 @@ classdef Mars < Planet
      methods
         
         function mars = Mars()
+            name = 'Mars';
             speed_of_sound = 244; %m/s
             m_planet = 639e21; %Mass of the planet in kg
             r_planet = 3396e3; %Radius of planet Earth (m)
             surface_density = .02; %kg/m^3, air density on earth
             atmosphere_height = 17559; %atmospheric height of earth (m)
-            mars@Planet(m_planet, r_planet, surface_density, atmosphere_height, speed_of_sound);
+            mars@Planet(name, m_planet, r_planet, surface_density, atmosphere_height, speed_of_sound);
         end
         
     end
