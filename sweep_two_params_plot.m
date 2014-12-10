@@ -18,10 +18,11 @@ end
 
 pcolor(params_1, params_2, log10(orbital_conditions));
 colorbar();
-title({'How does log10(launch_velocity) change', 'if we modify the atmosphere and surface density?'}, 'FontSize', 12)
+title({'How does log10(launchvelocity) change', 'if we modify the atmosphere and surface density?'}, 'FontSize', 12)
 xlabel('Atmosphere height (m)', 'FontSize',12)
 ylabel('Surface Density (kg/m^3)', 'FontSize',12)
 zlabel('Log of launch velocity needed to enter orbit (m/s)','FontSize',12);
+caxis([3 5]);
 
 
 end
